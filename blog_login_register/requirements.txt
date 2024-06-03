@@ -1,0 +1,3 @@
+Django
+Pillow
+django-ckeditor==6.5.1
