@@ -27,7 +27,7 @@
 
     <br><br>
 
-    <form action="{% url 'like_post' post.pk %}" method="post">
+    <!-- <form action="{% url 'like_post' post.pk %}" method="post">
         {% csrf_token %}
 
         {% if user.is_authenticated %}
@@ -43,7 +43,7 @@
         {% else %}
             <small>Debe estar logueado para dar Me Gusta - Total de Me Gusta: <strong>{{ total_likes }}</strong> </small>
         {% endif %}
-    </form>
+    </form> -->
 </article>
 
 <div class="my-3">

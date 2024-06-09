@@ -5,10 +5,7 @@
 
 
 {% if request.user.is_authenticated %}
-    <br>
-    <h4>
-      Bienvenido, {{ user.username | upper }}
-    </h4>
+
 {% endif %}
 
 
@@ -68,7 +65,7 @@
       <a class="page-link" href="?page=1">Inicio</a>
     </li>
     <li class="page-item {% if posts.number == 1 %}disabled{% endif %}">
-      <a class="page-link" href="{% if posts.number != 1 %}?page={{ posts.previous_page_number }}{% endif %}">Anterior</a>
+      <a class="page-link" href="{% if posts.number != 1 %}?page={{ posts.previous_page_number }}{% endif %}"><</a>
     </li>
 
     {% for i in aux %}
@@ -79,7 +76,7 @@
 
 
     <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled{% endif %}">
-      <a class="page-link" href="{% if posts.number != posts.paginator.num_pages %}?page={{ posts.next_page_number }}{% endif %}">Siguiente</a>
+      <a class="page-link" href="{% if posts.number != posts.paginator.num_pages %}?page={{ posts.next_page_number }}{% endif %}">></a>
     </li>
 
     <li class="page-item">
