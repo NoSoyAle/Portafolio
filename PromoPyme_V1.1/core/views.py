@@ -1,5 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.db.models import Q
 from django.forms import BaseModelForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Category
@@ -13,7 +14,6 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView  
 #from django.contrib.auth.decorators import login_required
-
 
 # Create your views here.
 
@@ -30,60 +30,9 @@ class HomeListView(ListView):
         return context
 
 
-
-#def home(request):
-
-#    if not request.session.get('items_per_page'):
-#        request.session['items_per_page'] = 2
-
-#    if request.method == 'GET' and 'items_per_page' in request.GET:
-#        request.session['items_per_page'] = int(request.GET['items_per_page'])
-
-#    items_per_page = request.session['items_per_page']
-
-#    posts_page = Paginator(Post.objects.filter(published=True), items_per_page)
-#    page = request.GET.get('page')
-#    posts = posts_page.get_page(page)
-#    aux = 'x' * posts.paginator.num_pages
-
-#    return render(request,'core/home.html', {'posts':posts, 'aux':aux})
-
-
-
-
-
-
-
-
-
-# Detalle del Post
-
-
 class PostDetailView(DetailView):
     model = Post
     template_name = 'core/detail.html'
-
-
-
-#@login_required
-
-#def post(request, post_id):
-    # post = Post.objects.get(id=post_id)
-#    try:
-#        post = get_object_or_404(Post, id=post_id)
-#        total_likes = post.total_likes()
-#
-#        liked = False
-#        if post.likes.filter(id=request.user.id).exists():
-#            liked = True
-
-#        return render(request, 'core/detail.html', {'post':post, 'total_likes':total_likes, 'liked':liked})
-#    except:
-#        return render(request, 'core/404.html')
-
-
-
-
 
 # Filtrado por Categoría
 class CategoryListView(ListView):
@@ -103,18 +52,6 @@ class CategoryListView(ListView):
         context['category']= Category.objects.get(id =  self.request.GET['cat'])
         return context
 
-
-
-# Filtrado por Categoría
-#def category(request, category_id):
-#    try:
-#        category = get_object_or_404(Category, id=category_id)
-#        return render(request, 'core/category.html', {'category':category})
-#    except:
-#        return render(request, 'core/404.html')
-
-
-
 class AutorListView(ListView):
     model = User
     template_name = 'core/author.html'
@@ -131,26 +68,6 @@ class AutorListView(ListView):
         context = super(AutorListView, self).get_context_data(**kwargs)
         context['author']= User.objects.get(id =  self.request.GET['aut'])
         return context
-
-
-
-# Filtrado por Author
-#def author(request, author_id):
-#    try:
-#        author = get_object_or_404(User, id=author_id)
-#        return render(request, 'core/author.html', {'author':author})
-#    except:
-#        return render(request, 'core/404.html')
-
-
-
-
-
-
-
-
-
-
 
 def register(request):
     data = {
@@ -170,12 +87,9 @@ def register(request):
 
     return render(request, 'registration/register.html', data)
 
-
-def exit(reuqest):
-    logout(reuqest)
+def exit(request):
+    logout(request)
     return redirect('home')
-
-
 
 def dates(request, month_id, year_id):
 
@@ -234,8 +148,19 @@ class PostUpdateView(UpdateView):
     
     def get_success_url(self) -> str:
         return reverse_lazy('update', args=[self.object.id]) + '?ok' 
-       
-    
+
 class PostDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy('home')
+
+def buscar(request):
+    busqueda = request.GET.get("buscar")
+    posts = Post.objects.all()
+    if busqueda:
+        posts = Post.objects.filter(
+                                    Q(title__icontains=busqueda) |
+                                    Q(author__username__icontains=busqueda)|
+                                    Q(category__name__icontains=busqueda)
+    ).distinct()
+    print (posts)
+    return render(request, 'core/busqueda.html', {'posts': posts})        

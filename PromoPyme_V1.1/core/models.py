@@ -29,13 +29,9 @@ class Post(models.Model):
 	content = RichTextField(verbose_name='Contenido')
 	image = models.ImageField(upload_to='posts', null=True, blank=True, verbose_name='Imagen')
 	published = models.BooleanField(default=False, verbose_name='Publicado')
-
 	# Campos con relaciones
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='get_posts', verbose_name='Categoría')
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='get_posts', verbose_name='Autor')
-
-	likes = models.ManyToManyField(User, related_name='blog_posts', verbose_name='Me Gusta')
-
 	created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
 	updated = models.DateTimeField(auto_now=True, verbose_name='Fecha de modificación')
 
