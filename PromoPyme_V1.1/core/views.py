@@ -7,12 +7,12 @@ from .models import Post, Category
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth import logout
 from .forms import CustomUserCreationForm, PostForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView  
+
 #from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -28,7 +28,6 @@ class HomeListView(ListView):
         context = super().get_context_data(**kwargs)
         print(context)
         return context
-
 
 class PostDetailView(DetailView):
     model = Post

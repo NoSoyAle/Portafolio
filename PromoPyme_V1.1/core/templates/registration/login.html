@@ -16,7 +16,7 @@
 
           {{ form | crispy }}
 
-          <a href="/" class="card-link">Inicio</a>
+          <p><a href="{% url "password_reset" %}">Recuperar tu contraseña?</a></p>
           <a href={% url 'register' %} class="card-link">Registarse</a>
 
           <button class="btn btn-sm btn-primary float-end" type="submit">Iniciar Sesión</button>
