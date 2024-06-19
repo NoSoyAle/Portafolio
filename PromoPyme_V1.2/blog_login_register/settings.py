@@ -206,15 +206,15 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp-mail.gmail.com'
+
+#SMTP Config
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'correodjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'contraseña'
+EMAIL_HOST_USER = 'promopyme.oficial@gmail.com' #contra del correo: amraam.120
+EMAIL_HOST_PASSWORD = 'rtnu bxjk hxxw uhau'
 
 
-# settings.py
-
-ALLOWED_HOSTS = ['*']  # O específica los hosts permitidos ['example.com', 'www.example.com']
 

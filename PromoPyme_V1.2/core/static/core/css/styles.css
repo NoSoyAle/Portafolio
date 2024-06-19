@@ -4,7 +4,7 @@ html{
 }
 
 body{
-    background: linear-gradient(to bottom, transparent, rgb(224, 124, 70));
+    background: linear-gradient(to bottom, transparent, rgb(188, 224, 70));
     display: flex;
     align-items: center;
     justify-content: center;
