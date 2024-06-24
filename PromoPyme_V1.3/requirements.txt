@@ -1,4 +1,4 @@
-django==4.1.1
+django
 pillow
 django-ckeditor==6.5.1
 crispy
