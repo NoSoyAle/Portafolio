@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- <h4>Resultado</h4>
+    <form action="{% url 'buscar' %}" method="get">
+        <input type="text" name="buscar" id="buscar" placeholder="Buscar..." value="{{consulta}}">
+        <button type="submit">Buscar</button>
+    </form> -->
+    <br>
+    <div class="container">
+        {% if posts %}
+            {% for prod in posts %}
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        {% if prod.image %}
+                            <div class="col-md-5">
+                                <img src="{{ prod.image.url }}" class="img-fluid rounded-start" alt="...">
+                            </div>
+                        {% endif %}
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h4 class="mb-0">{{ prod.title }}</h4>
+                                <p class="card-text mb-auto">{{ prod.excerpt }}</p>
+                                <br>
+                                <p>Por: {{ prod.author.username }}</p>
+                                <p class="d-inline-block mb-2 text-primary">Categoria: {{ prod.category.name }}</p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <a href="{% url 'post' prod.id %}" class="stretched-link">Seguir leyendo</a>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron resultados.</p>
+        {% endif %}
+    </div>
+    
+    <br><br>
+{% endblock %}
